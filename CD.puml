@@ -1,0 +1,30 @@
+@startuml
+class KNearestNeighbours {
+  - data
+  - target
+  - test_point
+  - k
+  - indices
+  + __init__(data, target, test_point, k)
+  + fit()
+}
+
+class MovieData {
+  - movies
+  - titles
+}
+
+class MovieInfoFetcher {
+  + movie_poster_fetcher(imdb_link)
+  + get_movie_info(imdb_link)
+}
+
+class StreamlitUI {
+  + run()
+}
+
+MovieInfoFetcher --> "fetches info for" MovieData
+StreamlitUI --> "displays" MovieData
+StreamlitUI --> "uses" MovieInfoFetcher
+StreamlitUI --> "recommends using" KNearestNeighbours
+@enduml

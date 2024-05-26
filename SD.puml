@@ -1,0 +1,21 @@
+@startuml
+[*] -> Idle
+
+Idle ::> "Selecting Recommendation Type": User opens the application;
+"Selecting Recommendation Type" ::> Idle: User closes the application
+
+"Selecting Recommendation Type" ::> "Selecting Movie/Genre": User selects "Movie based"
+"Selecting Recommendation Type" :> "Selecting Movie/Genre": User selects "Genre based"
+"Selecting Movie/Genre" ::> Idle: User closes the application
+
+"Selecting Movie/Genre" ::> "Fetching Recommendations": User selects a movie/genre
+"Fetching Recommendations" ::> Idle: User closes the application
+
+"Fetching Recommendations" ::> "Displaying Recommendations": Recommendations found
+"Displaying Recommendations"::> Idle: User closes the application
+
+"Displaying Recommendations" ::> "Fetching Poster": User decides to fetch poster
+"Fetching Poster" ::> "Displaying Recommendations": Poster fetched
+
+"Displaying Recommendations" ::> [*]
+@enduml

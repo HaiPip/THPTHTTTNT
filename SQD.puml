@@ -1,0 +1,31 @@
+@startuml
+actor User
+participant "StreamlitUI" as UI
+participant "MovieData" as Data
+participant "MovieInfoFetcher" as Fetcher
+participant "KNearestNeighbours" as KNN
+
+User -> UI: select recommendation type (Movie based)
+UI -> User: display movie selection
+User -> UI: select a movie
+UI -> User: ask if fetch movie poster
+User -> UI: decide to fetch movie poster (Yes/No)
+User -> UI: select number of recommendations
+UI -> KNN: KNN_Movie_Recommender(test_points, no_of_reco + 1)
+KNN -> Data: fetch movie data for KNN
+KNN -> UI: return recommended movies list
+
+alt Fetch movie poster (Yes)
+    UI -> Fetcher: movie_poster_fetcher(link)
+    Fetcher -> IMDB: fetch movie poster
+    Fetcher -> UI: display movie poster
+end
+
+UI -> Fetcher: get_movie_info(link)
+Fetcher -> IMDB: fetch movie info
+Fetcher -> UI: return movie info
+
+loop for each recommended movie
+    UI -> User: display movie info
+end
+@enduml
